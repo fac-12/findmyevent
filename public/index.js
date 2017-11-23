@@ -7,10 +7,11 @@ var errorDiv = document.getElementById('error');
 var button = document.getElementById('submit');
 
 /* INTITIALISE PAGE */
+
 window.onload = function() {
-    initMap(51.515419, -0.141099, 13);
-    button.disabled = true;
+  button.disabled = true;
 }
+
 
 /* NEED TO WRITE THIS */
 function displayError(error) {
@@ -115,20 +116,37 @@ function postcodeResponse(err, data) {
 }
 
 /* MAP RELATED CODE */
+var data = [];
 
-function initMap(lat, lng, zoom) {
-    var options = { center: { lat: lat, lng: lng }, zoom: zoom };
-    var map = new google.maps.Map(mapDiv, options);
+function updateMap(error, data){
+  if (error){
+    displayError(error);
+  } else {
+var script = document.createElement('script');
+script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN-niE68mI4o5hcMnb_-jWgI-pjeP-jWY&callback=newMap";
+document.body.appendChild(script);
 }
-// function updateMap(lat, lon, responseArr) {
-//     initMap(lat, lng);
-//     renderMarkers(responseArr);
-// }
+}
 
-// function renderMarkers(responseArr) {
-//     // add markers to map
-// }
+function newMap(data) {
+    var bounds = new google.maps.LatLngBounds();
+    var options = {
+      zoom : 13
+    };
+    var map = new google.maps.Map(mapDiv, options);
 
+    for(i =0; i < testArr.length; i++){
+      var position = new google.maps.LatLng(testArr[i][1], testArr[i][2]);
+      bounds.extend(position);
+      marker = new google.maps.Marker({
+        position : position,
+        map : map,
+        title : testArr[i][0]
+      });
+    }
+    map.fitBounds(bounds);
+}
+updateMap(null, testArr);
 
 /* XHR REQUEST */
 
@@ -147,3 +165,30 @@ function XHRrequest(url, cb) {
     xhr.open("GET", url, true);
     xhr.send();
 }
+
+
+
+
+var testArr = [ [ 'Comedy Cafe With Barry Ferns, Phil Dinsdale and Robert White',
+    51.5345114,
+    -0.0557447 ],
+  [ 'Reginald D Hunter Headlines Christmas Comedy Special',
+    51.501,
+    -0.124 ],
+  [ 'John Butcher, Angharad Davies, Matt Davis, Dominic Lash And Dimitra Lazaridou-Chatzigoga',
+    51.5469028,
+    -0.0749199 ],
+  [ 'Is this funny? A comedy focus group.',
+    51.5502491,
+    -0.1329178 ],
+  [ 'Pop! A Magical Comedy Show',
+    51.56912977704074,
+    -0.14331402869720478 ],
+  [ 'Writing for children: A six-week programme with Laura Dockrill',
+    51.5337293,
+    -0.1223402 ],
+  [ 'Mae Martin', 51.514351, -0.132958 ],
+  [ 'Michael McIntyre: Work In Progress',
+    51.517528253644116,
+    -0.12462464431916942 ],
+  [ 'Piccadilly Comedy Club', 51.501, -0.124 ] ]
