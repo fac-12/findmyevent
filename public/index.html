@@ -1,21 +1,58 @@
 <!DOCTYPE html>
- <html lang=en"">
-    <head>
-        <meta charset="utf-8">
-        <title>Meetup</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="public/style.css">
-    </head>
-    <body>
-        <section>
-            <form action="">
-                <input type="text" name="postcode" id="postcode">
-                <input type="text" name="category" id="category">
-                <input type="submit" name="submit" id="submit">
-            </form>
-        </section>
-        <div class="map" id="map"></div>
-        <script src=public/index.js""></script>
-    </body>
+<html lang=en "">
+
+<head>
+    <meta charset="utf-8">
+    <title>Meetup</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="public/style.css">
+</head>
+
+<body>
+    <section>
+        <form action="" id="form" class="form">
+            <input type="text" name="postcode" id="postcode" placeholder="Enter a UK postcode" required>
+            <input type="text" list="categories" id="cat-list">
+            <datalist id="categories">
+                <option value="Concerts &amp; Tour Dates">
+                <option value="Conferences &amp; Tradeshows">
+                <option value="Comedy">
+                <option value="Education">
+                <option value="Kids &amp; Family">
+                <option value="Festivals">
+                <option value="Film">
+                <option value="Food &amp; Wine">
+                <option value="Fundraising &amp; Charity">
+                <option value="Art Galleries &amp; Exhibits">
+                <option value="Health &amp; Wellness">
+                <option value="Holiday">
+                <option value="Literary &amp; Books">
+                <option value="Museums &amp; Attractions">
+                <option value="Neighborhood">
+                <option value="Business &amp; Networking">
+                <option value="Nightlife &amp; Singles">
+                <option value="University &amp; Alumni">
+                <option value="Organizations &amp; Meetups">
+                <option value="Outdoors &amp; Recreation">
+                <option value="Performing Arts">
+                <option value="Pets">
+                <option value="Politics &amp; Activism">
+                <option value="Sales &amp; Retail">
+                <option value="Science">
+                <option value="Religion &amp; Spirituality">
+                <option value="Sports">
+                <option value="Technology">
+                <option value="Other &amp; Miscellaneous">
+            </datalist>
+            <input type="submit" name="submit" id="submit">
+            <div id="error" class="hidden"></div>
+        </form>
+    </section>
+    <div class="map" id="map"></div>
+    <script src=public/category-list.js ""></script>
+    <script src=public/index.js ""></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN-niE68mI4o5hcMnb_-jWgI-pjeP-jWY&callback=initMap" async defer></script>
+</body>
+
 </html>
