@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const logic = require('./logic');
+const {getResults, filterByPostCode} = require('./logic');
 
 const homeHandler = (request, response) => {
     fs.readFile(path.join(__dirname, '..', 'public', 'index.html'), 'utf8', (err, file) => {
@@ -35,16 +35,13 @@ const staticFileHandler = (request, response, url) => {
     })
 };
 
-const resultsHandler = (request, response, url) => {
+const resultsHandler = url => {
     //this is the url that's come back. Need to call functions in logic and then go back to the front end. Querystring.
-    const splitUrl = url..split('=');
-    const postcode = splitUrl.split("&")[0];
-    const category = splitUrl[2];
+    let splitUrl = url.split('=');
+    let postcode = splitUrl[1].split('&')[0];
+    let category = splitUrl[2];
     getResults(postcode, category);
 };
-
-"/results?postcode=" + postcode + "&category=" + category
-
 
 module.exports = {
     homeHandler,
