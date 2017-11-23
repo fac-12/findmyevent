@@ -139,7 +139,7 @@ function XHRrequest(url, cb) {
             if (xhr.status === 200) {
                 cb(null, JSON.parse(xhr.responseText));
             } else {
-                var errorMessage = xhr.responseText;
+                var errorMessage = JSON.parse(xhr.responseText);
                 cb("Error " + url + " " + errorMessage);
             }
         }
