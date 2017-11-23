@@ -1,1 +1,18 @@
 /* inputs = outline turns red with message */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.map {
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
