@@ -17,7 +17,10 @@ module('http://api.eventful.com/json/events/search?...&where='+postcode+'&catego
 apiCall(request);
 
 const filterByPostCode = (events) => {
-let postCodes = events.map(a => a.postal_code);
-   console.log(postCodes);
+  let locations = []
+let postCodes = events.map(a => [locations.push(a.title)+ locations.push(parseFloat(a.latitude))+ locations.push(parseFloat(a.longitude))]);
+
+// +', '+parseFloat(a.latitude)+', '+parseFloat(a.longitude)]);
+   console.log(locations);
 
 }
