@@ -5,12 +5,13 @@ var postcodeInput = document.getElementById('postcode');
 var categoryInput = document.getElementById('cat-list');
 var errorDiv = document.getElementById('error');
 var button = document.getElementById('submit');
+var data = [];
 
 /* INTITIALISE PAGE */
 window.onload = function() {
-    initMap(51.515419, -0.141099, 13);
-    button.disabled = true;
+  button.disabled = true;
 }
+
 
 /* NEED TO WRITE THIS */
 function displayError(error) {
@@ -20,6 +21,11 @@ function displayError(error) {
 /* GENERAL HELPER FUNCTIONS */
 function noSpacesPostcode(postcode) {
     return postcode.replace(/ /g, '')
+}
+
+//Percentage postCodes
+function percentagePostcode(postcode) {
+    return postcode.replace(/ /g, '%20')
 }
 
 function checkValues(obj, value) {
@@ -40,6 +46,14 @@ function mapCategoryNametoID(obj, name) {
         }
     })
     return result
+}
+
+function dataInfo(data){
+  var results = [];
+  data.forEach(function(item){
+    results.push(['<div class="info_content"><h3>'+item[0]+'</h3></div>'])
+  })
+  return results;
 }
 
 /* ONLY ALLOW SUBMIT ON VALID FORM */
@@ -98,6 +112,7 @@ form.addEventListener('submit', function(event) {
     XHRrequest(url, postcodeResponse);
 })
 
+
 function postcodeResponse(err, data) {
     if (err) {
         displayError(err)
@@ -105,7 +120,7 @@ function postcodeResponse(err, data) {
         if (data.result === false) {
             displayError("Sorry, that postcode doesn't exist.")
         } else if (data.result === true) {
-            var postcode = noSpacesPostcode(postcodeInput.value)
+            var postcode = percentagePostcode(postcodeInput.value)
             var catValue = categoryInput.value.replace("&", "&amp;");
             var category = mapCategoryNametoID(fullCategoryList, catValue);
             var url = "/results?postcode=" + postcode + "&category=" + category;
@@ -115,19 +130,49 @@ function postcodeResponse(err, data) {
 }
 
 /* MAP RELATED CODE */
-
-function initMap(lat, lng, zoom) {
-    var options = { center: { lat: lat, lng: lng }, zoom: zoom };
-    var map = new google.maps.Map(mapDiv, options);
+function updateMap(error, data){
+  if (error){
+    displayError(error);
+  } else {
+    data = data;
+    var script = document.createElement('script');
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN-niE68mI4o5hcMnb_-jWgI-pjeP-jWY&callback=newMap";
+    document.body.appendChild(script);
+  }
 }
-// function updateMap(lat, lon, responseArr) {
-//     initMap(lat, lng);
-//     renderMarkers(responseArr);
-// }
 
-// function renderMarkers(responseArr) {
-//     // add markers to map
-// }
+function newMap() {
+    var bounds = new google.maps.LatLngBounds();
+    var options = {
+      zoom : 13
+    };
+    var map = new google.maps.Map(mapDiv, options);
+
+//Gives Event title to Google Map
+var infoWindowContent = dataInfo(data);
+
+//Display the markers on the map
+var infoWindow = new google.maps.InfoWindow(), marker, i;
+
+//Gives Event markers to Google Map
+    for(var i =0; i < data.length; i++){
+      var position = new google.maps.LatLng(data[i][1], data[i][2]);
+      bounds.extend(position);
+      marker = new google.maps.Marker({
+        position : position,
+        map : map,
+        title : data[i][0]
+      });
+    google.maps.event.addListener(marker, 'click', (function(marker, i){
+      return function(){
+        infoWindow.setContent(infoWindowContent[i][0]);
+        infoWindow.open(map, marker);
+      }
+    })(marker, i));
+}
+//Centre the map within the screen
+      map.fitBounds(bounds);
+}
 
 
 /* XHR REQUEST */
