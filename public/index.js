@@ -23,6 +23,11 @@ function noSpacesPostcode(postcode) {
     return postcode.replace(/ /g, '')
 }
 
+//Percentage postCodes
+function percentagePostcode(postcode) {
+    return postcode.replace(/ /g, '%20')
+}
+
 function checkValues(obj, value) {
     var bool = false;
     obj.category.forEach(function(item) {
@@ -107,6 +112,7 @@ form.addEventListener('submit', function(event) {
     XHRrequest(url, postcodeResponse);
 })
 
+
 function postcodeResponse(err, data) {
     if (err) {
         displayError(err)
@@ -114,7 +120,7 @@ function postcodeResponse(err, data) {
         if (data.result === false) {
             displayError("Sorry, that postcode doesn't exist.")
         } else if (data.result === true) {
-            var postcode = noSpacesPostcode(postcodeInput.value)
+            var postcode = percentagePostcode(postcodeInput.value)
             var catValue = categoryInput.value.replace("&", "&amp;");
             var category = mapCategoryNametoID(fullCategoryList, catValue);
             var url = "/results?postcode=" + postcode + "&category=" + category;
