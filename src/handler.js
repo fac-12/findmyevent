@@ -40,7 +40,7 @@ const resultsHandler = (request, response, url) => {
     let postcode = splitUrl[1].split('&')[0];
     let pc = addPercentagePostcode(postcode)
     let category = splitUrl[2];
-    let APIurl = `http://api.eventful.com/json/events/search?...&where=${pc}&category=${category}&within=5&app_key=z5cBwm3jP9DZ6fkj`;
+    let APIurl = `http://api.eventful.com/json/events/search?...&where=${pc}&category=${category}&within=2&app_key=z5cBwm3jP9DZ6fkj`;
 
     requestModule(APIurl, (error, res, body) => {
         if (error) {
