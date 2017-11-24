@@ -2,7 +2,7 @@
 const requestModule = require('request');
 const fs = require('fs');
 const path = require('path');
-const { filterByPostCode } = require('./logic');
+const { filterByPostCode, addPercentagePostcode } = require('./logic');
 
 const homeHandler = (request, response) => {
     fs.readFile(path.join(__dirname, '..', 'public', 'index.html'), 'utf8', (err, file) => {
@@ -36,12 +36,9 @@ const staticFileHandler = (request, response, url) => {
 };
 
 const resultsHandler = (request, response, url) => {
-    console.log(url)
     let splitUrl = url.split('=');
     let postcode = splitUrl[1].split('&')[0];
-    let part2 = postcode.slice(3, )
-    let part1 = postcode.slice(0, 3)
-    let pc = part1 + "%20" + part2
+    let pc = addPercentagePostcode(postcode)
     let category = splitUrl[2];
     let APIurl = `http://api.eventful.com/json/events/search?...&where=${pc}&category=${category}&within=5&app_key=z5cBwm3jP9DZ6fkj`;
 

@@ -13,6 +13,7 @@
     <section>
         <form action="" id="form" class="form">
             <input type="text" name="postcode" id="postcode" placeholder="Enter a UK postcode" required>
+            <div id="postcode-error" class="hidden"></div>
             <input type="text" list="categories" id="cat-list">
             <datalist id="categories">
                 <option value="Concerts &amp; Tour Dates">
@@ -46,7 +47,7 @@
                 <option value="Other &amp; Miscellaneous">
             </datalist>
             <input type="submit" name="submit" id="submit">
-            <div id="error" class="hidden"></div>
+            <div id="cat-error" class="hidden"></div>
         </form>
     </section>
     <div class="map" id="map"></div>

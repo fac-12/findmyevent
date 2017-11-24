@@ -11,4 +11,10 @@ const filterByPostCode = events => {
     return results;
 }
 
-module.exports = { filterByPostCode }
+const addPercentagePostcode = postcode => {
+    let array = postcode.split('');
+    array.splice(-3, 0, "%20")
+    return array.join('')
+}
+
+module.exports = { filterByPostCode, addPercentagePostcode }
