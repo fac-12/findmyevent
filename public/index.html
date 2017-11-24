@@ -13,9 +13,8 @@
 <body>
     <section class="inputForm">
         <form id="form" class="form">
-                <h1>Find my Event</h1>
-            <input type="text" name="postcode" id="postcode" placeholder="Enter a UK postcode..." required>
-            <div id="postcode-error" class="hidden"></div>
+            <h1>Find my Event</h1>
+            <input type="text" name="postcode" id="postcode" placeholder="Enter a UK postcode" required>
             <input type="text" list="categories" id="cat-list" placeholder="Pick a category...">
             <datalist id="categories">
                 <option value="Concerts &amp; Tour Dates">
@@ -48,11 +47,12 @@
                 <option value="Technology">
                 <option value="Other &amp; Miscellaneous">
             </datalist>
-            <input type="submit" name="submit" id="submit" class="submit">
-            <div id="cat-error" class="hidden"></div>
+            <div id="error" class="hidden"></div>
+            <input type="submit" name="submit" id="submit">
         </form>
     </section>
     <div class="map" id="map"></div>
+    <div class="hidden" id="spinner"></div>
     <script src=/public/category-list.js ""></script>
     <script src=/public/index.js ""></script>
 </body>

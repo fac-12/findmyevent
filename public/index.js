@@ -3,9 +3,10 @@ var mapDiv = document.getElementById('map');
 var form = document.getElementById('form');
 var postcodeInput = document.getElementById('postcode');
 var categoryInput = document.getElementById('cat-list');
-var postcodeError = document.getElementById('postcode-error');
-var categoryError = document.getElementById('cat-error');
+var errorDiv = document.getElementById('error');
 var button = document.getElementById('submit');
+var spinner = document.getElementById('spinner');
+
 var eventData = [];
 
 /* INTITIALISE PAGE */
@@ -19,14 +20,10 @@ function displayAPIError(error) {
     console.log(error)
 }
 
-function displayPostcodeError(error) {
-    //postcodeError.innerText = error
-    //postcodeError.className = "error";
-}
-
-function displayCatError(error) {
-    //categoryError.innerText = error;
-    //categoryError.className = "error";
+function displayInputError(error) {
+    console.log(error)
+    errorDiv.innerText = error.message;
+    errorDiv.className = "error";
 }
 
 /* GENERAL HELPER FUNCTIONS */
@@ -67,22 +64,18 @@ function postcodeValid(postcode) {
     var regex = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))[0-9][A-Za-z]{2})/
     var postcode = noSpacesPostcode(postcodeInput.value);
     if (regex.test(postcode)) {
-        //categoryError.innerText = ""
-        //categoryError.className = "hidden";
         return true
     } else {
-        throw new Error('Please enter a valid postcode')
+        throw new Error('Enter a valid postcode & category')
     }
 }
 
 function categoryValid() {
     var catValue = categoryInput.value.replace("&", "&amp;")
     if (checkValues(fullCategoryList, catValue)) {
-        //postcodeError.innerText = ""
-        //postcodeError.className = "hidden";
         return true
     } else {
-        throw new Error('Please enter a valid category')
+        throw new Error('Enter a valid postcode & category')
     }
 }
 
@@ -90,7 +83,7 @@ postcodeInput.addEventListener("input", function() {
     try {
         postcodeValid()
     } catch (err) {
-        displayPostcodeError(err)
+        displayInputError(err)
     }
 })
 
@@ -98,17 +91,19 @@ categoryInput.addEventListener("input", function() {
     try {
         categoryValid()
     } catch (err) {
-        displayCatError(err)
+        displayInputError(err)
     }
 })
 
 form.addEventListener('input', function() {
     try {
         if (categoryValid() && postcodeValid()) {
+            errorDiv.className = "hidden";
+            errorDiv.innerText = ""
             button.disabled = false;
         }
     } catch (err) {
-        console.log(err);
+        displayInputError(err);
     }
 })
 
@@ -128,14 +123,14 @@ function postcodeResponse(err, data) {
         displayAPIError(err)
     } else {
         if (data.result === false) {
-            displayPostcodeError("Sorry, that postcode doesn't exist.")
+            displayInputError("Sorry, that postcode doesn't exist.")
         } else if (data.result === true) {
             var postcode = noSpacesPostcode(postcodeInput.value)
             var catValue = categoryInput.value.replace("&", "&amp;");
             var category = mapCategoryNametoID(fullCategoryList, catValue);
             var url = "/results?postcode=" + postcode + "&category=" + category;
             button.disabled = true;
-
+            spinner.className = "loader";
             XHRrequest(url, updateMap)
         }
     }
@@ -186,6 +181,7 @@ function newMap() {
     }
     //Centre the map within the screen
     map.fitBounds(bounds);
+    spinner.className = "hidden";
 }
 
 
