@@ -37,6 +37,7 @@ To build a web app that provides users with frequently updated content on a regu
 
 ### Things we learnt
 - How to generate a [Google Map with mulitple markers and info windows](https://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/)
+- How to prevent a form from submitting until all inout fields are valid
 
 ### Things that we definitely should have found time for (but sadly didn't)
 - Server side validation
