@@ -6,13 +6,14 @@
     <title>Meetup</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="public/style.css">
+    <link rel="stylesheet" href="/public/style.css">
 </head>
 
 <body>
-    <section>
-        <form action="" id="form" class="form">
+    <section class="inputForm">
+        <form id="form" class="form">
             <input type="text" name="postcode" id="postcode" placeholder="Enter a UK postcode" required>
+            <div id="postcode-error" class="hidden"></div>
             <input type="text" list="categories" id="cat-list">
             <datalist id="categories">
                 <option value="Concerts &amp; Tour Dates">
@@ -46,12 +47,12 @@
                 <option value="Other &amp; Miscellaneous">
             </datalist>
             <input type="submit" name="submit" id="submit">
-            <div id="error" class="hidden"></div>
+            <div id="cat-error" class="hidden"></div>
         </form>
     </section>
     <div class="map" id="map"></div>
-    <script src=public/category-list.js ""></script>
-    <script src=public/index.js ""></script>
+    <script src=/public/category-list.js ""></script>
+    <script src=/public/index.js ""></script>
 </body>
 
 </html>

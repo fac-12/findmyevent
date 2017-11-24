@@ -1,15 +1,15 @@
 /* eslint-disable*/
 
-const {homeHandler, staticFileHandler, resultsHandler} = require('./handler');
+const { homeHandler, staticFileHandler, resultsHandler } = require('./handler');
 
 const router = (request, response) => {
     const endpoint = request.url;
     if (endpoint === '/') {
         homeHandler(request, response);
-    } else if (endpoint === '/public') {
-        staticFileHandler(request, response, url);
-    } else if (endpoint === '/results') {
-        resultsHandler(request, response, url);
+    } else if (endpoint.indexOf("public") !== -1) {
+        staticFileHandler(request, response, endpoint);
+    } else if (endpoint.indexOf("results") !== -1) {
+        resultsHandler(request, response, endpoint);
     } else {
         response.writeHead('404', {
             'Content-Type': 'text/html'
