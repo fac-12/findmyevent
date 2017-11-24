@@ -16,9 +16,6 @@ To build a web app that provides users with frequently updated content on a regu
 - Software architecture: use of module.exports and require for modularisation and consideration of server file structure. (add pictures)
 - Backend code: server, router, handlers, JSON data, API, Request module
 - Frontend code: DOM rendering
-- Server side validation
-- Deploying to Heroku
-
 
 ### Challenges
 - Difficulties identifying a suitable API, we tried using the [Meet Up API](https://www.meetup.com/meetup_api/) but found the information returned to us was not very useful :-1: 
@@ -38,6 +35,14 @@ To build a web app that provides users with frequently updated content on a regu
 ```
 - How to use [environment variables](https://github.com/dwyl/learn-environment-variables) to keep our secret keys away from prying eyes! 👀
 
-
 ### Things we learnt
 - How to generate a [Google Map with mulitple markers and info windows](https://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/)
+
+### Things that we definitely should have found time for (but sadly didn't)
+- Server side validation
+- More complete testing
+- Deploying to Heroku
+
+### Stretch Goals
+- Came very close to adding numbered labels to each marker, with the corresponding event title displayed in a numbered list on the right hand side
+- This would be the final piece in the puzzle to improve out website! :)
