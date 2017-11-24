@@ -46,3 +46,4 @@ To build a web app that provides users with frequently updated content on a regu
 ### Stretch Goals
 - Came very close to adding numbered labels to each marker, with the corresponding event title displayed in a numbered list on the right hand side
 - This would be the final piece in the puzzle to improve our website! :)
+- Event title within info window should link through to event
