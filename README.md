@@ -13,7 +13,7 @@ Meet up uses the [eventful API](http://api.eventful.com/) and [Google Maps API](
 To build a web app that provides users with frequently updated content on a regular or continuous basis and allows users to search its content.
 
 ## How we built it
-- Software architecture: use of module.exports and require for modularisation and consideration of server file structure. (add pictures)
+- Software architecture: use of module.exports and require for modularisation and consideration of server file structure.
 - Backend code: server, router, handlers, JSON data, API, Request module
 - Frontend code: DOM rendering
 
