@@ -4,8 +4,6 @@ const test = require('tape');
 const shot = require('shot');
 const router = require('./src/router'); //to be used to test router
 const {homeHandler, staticFileHandler, resultsHandler} = require('./src/handler');
-const {noSpacesPostcode} = require('./public/index.js');
-
 const getResults = require('./src/logic');
 const url = "/results?postcode=E2%208RS&category=technology";
 
@@ -28,12 +26,4 @@ test('unknown route', (t) => {
     t.equal(res.statusCode, 404, 'should be 404');
     t.end();
   });
-});
-
-test('postcodes should have no spaces', (t) =>  {
-  let postcode = 'e2 3sy';
-  let actual = noSpacesPostcode(postcode).indexOf(' ');
-  let expected = -1;
-  t.equal(-1, actual, 'should be -1');
-  t.end();
 });
